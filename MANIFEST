@@ -11,7 +11,6 @@ t/Mail-Pyzor-Digest-StripHtml.t
 t/Mail-Pyzor-Digest.t
 t/lib/MailPyzorTestBase.pm
 t/lib/Test/Mail/Pyzor.pm
-t/support/bad_encoding.py
 t/support/digest_email/autossl_notification
 t/support/digest_email/cp_publish
 t/support/digest_email/cp_publish-badutf8
@@ -37,4 +36,3 @@ t/support/digest_email/unnoted_utf8
 t/support/digest_payloads.py
 t/support/normalize.py
 t/support/normalize_html_part.py
-t/support/test_bad_encoding.pl
