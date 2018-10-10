@@ -170,7 +170,6 @@ sub _get_expected {
 
     my $out = q<>;
     my $err = q<>;
-stat "=======";
     IPC::Run::run(
         [ Test::Mail::Pyzor::python_bin(), $path ],
         \$html,
@@ -207,20 +206,14 @@ sub test_strip : Tests() {
                     $label,
                 )
                 or do {
-                    diag _dump($got);
-                    diag _dump($expect);
+                    diag Test::Mail::Pyzor::dump($got);
+                    diag Test::Mail::Pyzor::dump($expect);
                 };
             }
         }
     }
 
     return;
-}
-
-sub _dump {
-    my (@stuff) = @_;
-
-    return Data::Dumper->new( \@stuff )->Useqq(1)->Indent(0)->Terse(1)->Dump();
 }
 
 1;

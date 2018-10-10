@@ -1,10 +1,12 @@
 #!/usr/local/cpanel/3rdparty/bin/perl -w
 
-# cpanel - t/Cpanel-Pyzor-Digest.t                   Copyright 2018 cPanel, Inc.
-#                                                           All rights Reserved.
-# copyright@cpanel.net                                         http://cpanel.net
-# This code is subject to the cPanel license. Unauthorized copying is prohibited
-
+# Copyright (c) 2012, cPanel, LLC.
+# # All rights reserved.
+# # http://cpanel.net
+# #
+# # This is free software; you can redistribute it and/or modify it under the
+# # same terms as Perl itself. See L<perlartistic>.
+#
 package t::Mail::Pyzor::Digest;
 
 use strict;
@@ -151,9 +153,9 @@ sub test_get : Tests() {
         $expect ||= $self->_get_digest_from_pyzor($$msg_sr);
 
         is( $perl_digest, $expect, $name ) or do {
-            diag( "we deduced: " . _dump( ${ Mail::Pyzor::Digest::_get_predigest($$msg_sr) } ) );
+            diag( "we deduced: " . Test::Mail::Pyzor::dump( ${ Mail::Pyzor::Digest::_get_predigest($$msg_sr) } ) );
 
-            diag( "should be : " . _dump( $self->_get_predigest_from_pyzor($$msg_sr) ) );
+            diag( "should be : " . Test::Mail::Pyzor::dump( $self->_get_predigest_from_pyzor($$msg_sr) ) );
         };
     }
 
@@ -205,19 +207,13 @@ sub test_get__pyzor_string_tests : Tests(9) {
         my $digest = $self->_get_digest_from_pyzor($msg);
 
         is( Mail::Pyzor::Digest::get($msg), $digest, $insert ) or do {
-            diag( "we deduced: " . _dump( ${ Mail::Pyzor::Digest::_get_predigest($msg) } ) );
+            diag( "we deduced: " . Test::Mail::Pyzor::dump( ${ Mail::Pyzor::Digest::_get_predigest($msg) } ) );
 
-            diag( "should be : " . _dump( $self->_get_predigest_from_pyzor($msg) ) );
+            diag( "should be : " . Test::Mail::Pyzor::dump( $self->_get_predigest_from_pyzor($msg) ) );
         };
     }
 
     return;
-}
-
-sub _dump {
-    my (@stuff) = @_;
-
-    return Data::Dumper->new( \@stuff )->Useqq(1)->Indent(0)->Terse(1)->Dump();
 }
 
 1;

@@ -1,9 +1,11 @@
 #!/usr/local/cpanel/3rdparty/bin/perl -w
 
-# cpanel - t/Cpanel-Pyzor-Digest-Pieces.t            Copyright 2018 cPanel, Inc.
-#                                                           All rights reserved.
-# copyright@cpanel.net                                         http://cpanel.net
-# This code is subject to the cPanel license. Unauthorized copying is prohibited
+# Copyright (c) 2012, cPanel, LLC.
+# All rights reserved.
+# http://cpanel.net
+#
+# This is free software; you can redistribute it and/or modify it under the
+# same terms as Perl itself. See L<perlartistic>.
 
 package t::Mail::Pyzor::Digest::Pieces;
 
@@ -134,8 +136,8 @@ sub test_digest_payloads : Tests() {
                 )
                 or do {
                     for my $i ( 1 .. $#$expected_ar ) {
-                        diag _dump( $payloads_ar->[$i] );
-                        diag _dump( $expected_ar->[$i] );
+                        diag Test::Mail::Pyzor::dump( $payloads_ar->[$i] );
+                        diag Test::Mail::Pyzor::dump( $expected_ar->[$i] );
                     }
                 };
             }
@@ -155,7 +157,7 @@ sub test_should_handle_line : Tests(6) {
     for my $line (@yes) {
         ok(
             Mail::Pyzor::Digest::Pieces::should_handle_line($line),
-            "yes: " . _dump($line),
+            "yes: " . Test::Mail::Pyzor::dump($line),
         );
     }
 
@@ -168,7 +170,7 @@ sub test_should_handle_line : Tests(6) {
     for my $line (@no) {
         ok(
             !Mail::Pyzor::Digest::Pieces::should_handle_line($line),
-            "no: " . _dump($line),
+            "no: " . Test::Mail::Pyzor::dump($line),
         );
     }
 
@@ -182,7 +184,7 @@ sub test_normalize : Tests() {
         $self->_skip_if_no_python_pyzor($self->num_tests());
 
         for my $in ( _NORMALIZE() ) {
-            diag _dump($in);
+            diag Test::Mail::Pyzor::dump($in);
 
             my $copy = $in;
 
@@ -193,7 +195,7 @@ sub test_normalize : Tests() {
             is(
                 $copy,
                 $expect,
-                '… as binary: ' . _dump($expect),
+                '… as binary: ' . Test::Mail::Pyzor::dump($expect),
             );
 
         SKIP: {
@@ -210,7 +212,7 @@ sub test_normalize : Tests() {
                 is(
                     $copy,
                     $expect,
-                    '… as UTF-8 : ' . _dump($expect),
+                    '… as UTF-8 : ' . Test::Mail::Pyzor::dump($expect),
                 );
             }
         }
@@ -253,12 +255,6 @@ sub test_assemble_lines : Tests(4) {
     );
 
     return;
-}
-
-sub _dump {
-    my (@stuff) = @_;
-
-    return Data::Dumper->new( \@stuff )->Useqq(1)->Indent(0)->Terse(1)->Dump();
 }
 
 1;

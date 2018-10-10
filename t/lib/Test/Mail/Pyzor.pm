@@ -65,4 +65,10 @@ sub python_can_load_pyzor {
     return $_python_can_load_pyzor;
 }
 
+sub dump {
+    my (@stuff) = @_;
+
+    Data::Dumper->new( \@stuff )->Useqq(1)->Indent(0)->Terse(1)->Dump();
+}
+
 1;
