@@ -11,9 +11,6 @@ package t::Mail::Pyzor::Digest;
 
 use strict;
 use warnings;
-use autodie;
-
-use Try::Tiny;
 
 use FindBin;
 use lib "$FindBin::Bin/lib";
