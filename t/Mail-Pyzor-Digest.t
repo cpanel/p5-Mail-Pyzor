@@ -40,12 +40,18 @@ if ( !caller ) {
 
 #----------------------------------------------------------------------
 
+sub SKIP_CLASS {
+    my ($self) = @_;
+
+    return $self->{'_pyzor_bin'} ? q<> : 'No “pyzor” binary found.';
+}
+
 #e.g., num_method_tests()
 sub new {
     my ( $class, @args ) = @_;
     my $self = $class->SUPER::new(@args);
 
-    $self->{'_pyzor_bin'} = File::Which::which('pyzor') or die "No “pyzor”!";
+    $self->{'_pyzor_bin'} = File::Which::which('pyzor');
 
     $self->{'_message_hr'} = Test::Mail::Pyzor::get_test_emails_hr();
 

@@ -16,9 +16,7 @@ use Try::Tiny;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use parent qw(
-  Test::Class
-);
+use parent qw( MailPyzorTestBase );
 
 use Test::More;
 use Test::NoWarnings;
@@ -80,7 +78,7 @@ sub _run_pyzor {
     my $out = q<>;
     my $err = q<>;
     IPC::Run::run(
-        [ "$FindBin::Bin/support/$cmd.py", @args ],
+        [ Test::Mail::Pyzor::python_bin(), "$FindBin::Bin/support/$cmd.py", @args ],
         $input_sr,
         \$out,
         \$err,
@@ -106,37 +104,41 @@ sub _pyzor_digest_payloads {
 sub test_digest_payloads : Tests() {
     my ($self) = @_;
 
-    my %name_message = %{ $self->{'_message_hr'} };
+  SKIP: {
+        $self->_skip_if_no_python_pyzor($self->num_tests());
 
-    for my $name ( sort keys %name_message ) {
-      SKIP: {
-            skip $name, 1 if Test::Mail::Pyzor::EMAIL_DIGEST()->{$name};
+        my %name_message = %{ $self->{'_message_hr'} };
 
-            # Email::MIME seems to fiddle with the string that it receives,
-            # so let’s protect against that by giving a disposable copy.
-            my $msg = Email::MIME->new( q<> . ${ $name_message{$name} } );
+        for my $name ( sort keys %name_message ) {
+          SKIP: {
+                skip $name, 1 if Test::Mail::Pyzor::EMAIL_DIGEST()->{$name};
 
-            my $payloads_ar = Mail::Pyzor::Digest::Pieces::digest_payloads($msg);
+                # Email::MIME seems to fiddle with the string that it receives,
+                # so let’s protect against that by giving a disposable copy.
+                my $msg = Email::MIME->new( q<> . ${ $name_message{$name} } );
 
-            my $expected_ar = _pyzor_digest_payloads( $name_message{$name} );
+                my $payloads_ar = Mail::Pyzor::Digest::Pieces::digest_payloads($msg);
 
-            # Required because of Email::MIME::Encodings’s heavy-handed
-            # approach to email line endings. (YOU WILL SUBMIT!!)
-            s<\x0d\x0a><\x0a>g for ( @$payloads_ar, @$expected_ar );
+                my $expected_ar = _pyzor_digest_payloads( $name_message{$name} );
 
-            utf8::encode($_) for @$payloads_ar, @$expected_ar;
+                # Required because of Email::MIME::Encodings’s heavy-handed
+                # approach to email line endings. (YOU WILL SUBMIT!!)
+                s<\x0d\x0a><\x0a>g for ( @$payloads_ar, @$expected_ar );
 
-            is_deeply(
-                $payloads_ar,
-                $expected_ar,
-                $name,
-              )
-              or do {
-                for my $i ( 1 .. $#$expected_ar ) {
-                    diag _dump( $payloads_ar->[$i] );
-                    diag _dump( $expected_ar->[$i] );
-                }
-              };
+                utf8::encode($_) for @$payloads_ar, @$expected_ar;
+
+                is_deeply(
+                    $payloads_ar,
+                    $expected_ar,
+                    $name,
+                )
+                or do {
+                    for my $i ( 1 .. $#$expected_ar ) {
+                        diag _dump( $payloads_ar->[$i] );
+                        diag _dump( $expected_ar->[$i] );
+                    }
+                };
+            }
         }
     }
 
@@ -174,37 +176,43 @@ sub test_should_handle_line : Tests(6) {
 }
 
 sub test_normalize : Tests() {
-    for my $in ( _NORMALIZE() ) {
-        diag _dump($in);
+    my ($self) = @_;
 
-        my $copy = $in;
+  SKIP: {
+        $self->_skip_if_no_python_pyzor($self->num_tests());
 
-        my $expect = _pyzor_normalize(\$copy);
+        for my $in ( _NORMALIZE() ) {
+            diag _dump($in);
 
-        Mail::Pyzor::Digest::Pieces::normalize($copy);
-
-        is(
-            $copy,
-            $expect,
-            '… as binary: ' . _dump($expect),
-        );
-
-      SKIP: {
             my $copy = $in;
 
-            utf8::decode($copy) or skip 'This is invalid UTF-8.', 1;
-
-            my $expect = _pyzor_normalize( \$in, '--utf-8' );
+            my $expect = _pyzor_normalize(\$copy);
 
             Mail::Pyzor::Digest::Pieces::normalize($copy);
-
-            utf8::encode($copy);
 
             is(
                 $copy,
                 $expect,
-                '… as UTF-8 : ' . _dump($expect),
+                '… as binary: ' . _dump($expect),
             );
+
+        SKIP: {
+                my $copy = $in;
+
+                utf8::decode($copy) or skip 'This is invalid UTF-8.', 1;
+
+                my $expect = _pyzor_normalize( \$in, '--utf-8' );
+
+                Mail::Pyzor::Digest::Pieces::normalize($copy);
+
+                utf8::encode($copy);
+
+                is(
+                    $copy,
+                    $expect,
+                    '… as UTF-8 : ' . _dump($expect),
+                );
+            }
         }
     }
 

@@ -18,9 +18,7 @@ use Try::Tiny;
 use FindBin;
 use lib "$FindBin::Bin/lib";
 
-use parent qw(
-  Test::Class
-);
+use parent qw( MailPyzorTestBase );
 
 use Test::More;
 use Test::NoWarnings;
@@ -172,8 +170,9 @@ sub _get_expected {
 
     my $out = q<>;
     my $err = q<>;
+stat "=======";
     IPC::Run::run(
-        [ $path ],
+        [ Test::Mail::Pyzor::python_bin(), $path ],
         \$html,
         \$out,
         \$err,
@@ -185,27 +184,33 @@ sub _get_expected {
 }
 
 sub test_strip : Tests() {
-    for my $t ( @{ _STRIP_TESTS() } ) {
-        my ( $label, $in, %opts ) = @$t;
+    my ($self) = @_;
 
-        my $got = Mail::Pyzor::Digest::StripHtml::strip($in);
+  SKIP: {
+        $self->_skip_if_no_python_pyzor( $self->num_tests() );
 
-        my $expect = _get_expected($in);
+        for my $t ( @{ _STRIP_TESTS() } ) {
+            my ( $label, $in, %opts ) = @$t;
 
-      TODO: {
-            local $TODO = $opts{'todo'};
+            my $got = Mail::Pyzor::Digest::StripHtml::strip($in);
 
-            utf8::is_utf8($_) && utf8::encode($_) for ( $got, $expect );
+            my $expect = _get_expected($in);
 
-            is(
-                $got,
-                $expect,
-                $label,
-              )
-              or do {
-                diag _dump($got);
-                diag _dump($expect);
-              };
+        TODO: {
+                local $TODO = $opts{'todo'};
+
+                utf8::is_utf8($_) && utf8::encode($_) for ( $got, $expect );
+
+                is(
+                    $got,
+                    $expect,
+                    $label,
+                )
+                or do {
+                    diag _dump($got);
+                    diag _dump($expect);
+                };
+            }
         }
     }
 

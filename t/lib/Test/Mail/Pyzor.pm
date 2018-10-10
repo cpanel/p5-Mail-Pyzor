@@ -14,6 +14,7 @@ use autodie;
 use FindBin;
 
 use File::Slurp;
+use File::Which;
 
 use constant _SUPPORT_DIR => "$FindBin::Bin/support";
 use constant _EMAILS_DIR  => _SUPPORT_DIR() . '/digest_email';
@@ -39,6 +40,29 @@ sub get_test_emails_hr {
     }
 
     return \%name_content;
+}
+
+my $_python_bin;
+
+sub python_bin {
+    return $_python_bin ||= File::Which::which('python');
+}
+
+my $_python_can_load_pyzor;
+
+sub python_can_load_pyzor {
+    if (!defined $_python_can_load_pyzor) {
+        if ( my $python = python_bin() ) {
+            system($python, '-c', 'import pyzor');
+            $_python_can_load_pyzor = !$?;
+        }
+        else {
+            print STDERR "This process cannot find “python”.\n";
+            $_python_can_load_pyzor = 0;
+        }
+    }
+
+    return $_python_can_load_pyzor;
 }
 
 1;

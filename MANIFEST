@@ -9,6 +9,7 @@ lib/Mail/Pyzor/Digest/StripHtml.pm
 t/Mail-Pyzor-Digest-Pieces.t
 t/Mail-Pyzor-Digest-StripHtml.t
 t/Mail-Pyzor-Digest.t
+t/lib/MailPyzorTestBase.pm
 t/lib/Test/Mail/Pyzor.pm
 t/support/bad_encoding.py
 t/support/digest_email/autossl_notification
