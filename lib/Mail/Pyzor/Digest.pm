@@ -31,6 +31,7 @@ A reimplementation of L<https://github.com/SpamExperts/pyzor/blob/master/pyzor/d
 use Email::MIME  ();
 
 use Mail::Pyzor::Digest::Pieces ();
+use Mail::Pyzor::SHA            ();
 
 #----------------------------------------------------------------------
 
@@ -48,22 +49,7 @@ identical normally.
 =cut
 
 sub get {
-    return _sha1_hex( ${ _get_predigest( $_[0] ) } );
-}
-
-sub _sha1_hex {
-
-    # Digest::SHA1 is smaller, so use that if it happens
-    # to be loaded.
-    if ($INC{'Digest/SHA1.pm'}) {
-        *_sha1_hex = \*Digest::SHA1::sha1_hex;
-    }
-    else {
-        require Digest::SHA;
-        *_sha1_hex = \*Digest::SHA::sha1_hex;
-    }
-
-    goto &_sha1_hex;
+    return Mail::Pyzor::SHA::sha1_hex( ${ _get_predigest( $_[0] ) } );
 }
 
 # NB: This is called from the test.
