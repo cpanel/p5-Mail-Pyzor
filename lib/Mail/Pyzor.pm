@@ -36,6 +36,11 @@ the distribution includes:
 
 =back
 
+=head1 STABILITY
+
+This module’s API is EXPERIMENTAL. Please check the changelog
+before updating to a new release.
+
 =cut
 
 1;

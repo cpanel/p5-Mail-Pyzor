@@ -14,3 +14,8 @@ the distribution includes:
 
 - [Mail::Pyzor::Client](https://metacpan.org/pod/Mail::Pyzor::Client)
 - [Mail::Pyzor::Digest](https://metacpan.org/pod/Mail::Pyzor::Digest)
+
+# STABILITY
+
+This module’s API is EXPERIMENTAL. Please check the changelog
+before updating to a new release.
