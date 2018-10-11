@@ -6,19 +6,23 @@ use warnings;
 use Test::More;
 use Test::FailWarnings;
 
-plan tests => 7;
+my $has_sha1 = eval { require Digest::SHA1; 1 };
+
+plan tests => $has_sha1 ? 7 : 5;
 
 use_ok('Mail::Pyzor::SHA');
 
-my $path = `$^X -MDigest::SHA1 -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA.pm"} || q<>'`;
-is( $path, q<>, 'didn’t load Digest::SHA if Digest::SHA1 is already loaded.' );
-ok( !$?, '… and succeeded' );
+if ($has_sha1) {
+    my $path = `$^X -MDigest::SHA1 -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA.pm"} || q<>'`;
+    is( $path, q<>, 'didn’t load Digest::SHA if Digest::SHA1 is already loaded.' );
+    ok( !$?, '… and succeeded' );
+}
 
-$path = `$^X -MDigest::SHA -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA1.pm"} || q<>'`;
+my $path = `$^X -MDigest::SHA -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA1.pm"} || q<>'`;
 is( $path, q<>, 'didn’t load Digest::SHA1 if Digest::SHA is already loaded.' );
 ok( !$?, '… and succeeded' );
 
-if ( eval { require Digest::SHA1; 1 } ) {
+if ($has_sha1) {
     diag "== This install has Digest::SHA1.";
 
     my $path = `$^X -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA1.pm"} || q<>'`;
