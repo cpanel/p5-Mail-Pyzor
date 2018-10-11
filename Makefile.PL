@@ -22,8 +22,8 @@ WriteMakefile1(
     ABSTRACT_FROM => 'lib/Mail/Pyzor.pm',
     LICENSE       => 'perl',
 
-    # X::Tiny’s minimum version as of this writing.
-    MIN_PERL_VERSION => 5.010000,
+    # For now we use 5.14’s /a modifier.
+    MIN_PERL_VERSION => 5.014000,
 
     PREREQ_PM => {
         'parent'                   => 0,
