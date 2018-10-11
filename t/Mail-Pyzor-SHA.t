@@ -8,8 +8,6 @@ use Test::FailWarnings;
 
 plan tests => 7;
 
-use Module::Load;
-
 use_ok('Mail::Pyzor::SHA');
 
 my $path = `$^X -MDigest::SHA1 -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA.pm"} || q<>'`;
@@ -20,7 +18,7 @@ $path = `$^X -MDigest::SHA -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); pr
 is( $path, q<>, 'didn’t load Digest::SHA1 if Digest::SHA is already loaded.' );
 ok( !$?, '… and succeeded' );
 
-if ( eval { Module::Load::load('Digest::SHA1'); 1 } ) {
+if ( eval { require Digest::SHA1; 1 } ) {
     diag "== This install has Digest::SHA1.";
 
     my $path = `$^X -MMail::Pyzor::SHA -e'Mail::Pyzor::SHA::sha1(123); print \$INC{"Digest/SHA1.pm"} || q<>'`;
