@@ -1,6 +1,6 @@
 #!/usr/local/cpanel/3rdparty/bin/perl -w
 
-# Copyright (c) 2012, cPanel, LLC.
+# Copyright 2018 cPanel, LLC.
 # All rights reserved.
 # http://cpanel.net
 #

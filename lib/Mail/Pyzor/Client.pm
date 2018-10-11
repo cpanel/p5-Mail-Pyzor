@@ -1,6 +1,6 @@
 package Mail::Pyzor::Client;
 
-# Copyright (c) 2012, cPanel, LLC.
+# Copyright 2018 cPanel, LLC.
 # All rights reserved.
 # http://cpanel.net
 #
