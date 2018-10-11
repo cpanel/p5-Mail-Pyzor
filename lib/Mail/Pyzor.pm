@@ -7,7 +7,7 @@ package Mail::Pyzor;
 # This is free software; you can redistribute it and/or modify it under the
 # same terms as Perl itself. See L<perlartistic>.
 
-our $VERSION = '0.01';
+our $VERSION = '0.01-TRIAL1';
 
 =encoding utf-8
 
@@ -34,3 +34,5 @@ the distribution includes:
 =back
 
 =cut
+
+1;
