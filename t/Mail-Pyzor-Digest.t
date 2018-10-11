@@ -20,7 +20,7 @@ use parent qw(
 );
 
 use Test::More;
-use Test::NoWarnings;
+use Test::FailWarnings;
 
 use Test::Mail::Pyzor ();
 
@@ -31,11 +31,7 @@ use IO::Pty ();
 
 use Mail::Pyzor::Digest ();
 
-if ( !caller ) {
-    my $test_obj = __PACKAGE__->new();
-    plan tests => $test_obj->expected_tests(+1);
-    $test_obj->runtests();
-}
+__PACKAGE__->new()->runtests() if !caller;
 
 #----------------------------------------------------------------------
 

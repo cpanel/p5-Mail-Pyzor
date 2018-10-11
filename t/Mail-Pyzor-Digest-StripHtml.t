@@ -18,7 +18,7 @@ use lib "$FindBin::Bin/lib";
 use parent qw( MailPyzorTestBase );
 
 use Test::More;
-use Test::NoWarnings;
+use Test::FailWarnings;
 
 use Data::Dumper ();
 use Encode   ();
@@ -26,11 +26,7 @@ use IPC::Run ();
 
 use Mail::Pyzor::Digest::StripHtml ();
 
-if ( !caller ) {
-    my $test_obj = __PACKAGE__->new();
-    plan tests => $test_obj->expected_tests(+1);
-    $test_obj->runtests();
-}
+__PACKAGE__->new()->runtests() if !caller;
 
 #----------------------------------------------------------------------
 

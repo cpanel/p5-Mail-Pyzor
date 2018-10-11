@@ -23,13 +23,14 @@ WriteMakefile1(
     LICENSE      => 'perl',
 
     PREREQ_PM    => {
-        'constant' => 0,
         'Digest::SHA' => 0,
         'Email::MIME' => 0,
         'Email::MIME::ContentType' => 0,
         'Encode' => 0,
+        'IO::SigGuard' => 0.12,
         'IPC::Run' => 0,
         'HTML::Parser' => 0,
+        'X::Tiny' => 0,
     },
 
     TEST_REQUIRES => {
@@ -38,7 +39,7 @@ WriteMakefile1(
         'JSON' => 0,
         'Test::Class' => 0,
         'Test::More'      => 0,
-        'Test::NoWarnings' => 0,
+        'Test::FailWarnings' => 0,
         'File::Slurp' => 0,
         'Data::Dumper' => 0,
         'File::Which' => 0,
