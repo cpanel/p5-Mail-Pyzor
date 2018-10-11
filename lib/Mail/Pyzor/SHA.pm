@@ -3,8 +3,6 @@ package Mail::Pyzor::SHA;
 use strict;
 use warnings;
 
-use Module::Load ();
-
 use constant _ORDER => ( 'Digest::SHA1', 'Digest::SHA' );
 
 my $_sha_module;
@@ -22,7 +20,10 @@ sub _sha_module {
             my @modules = _ORDER();
 
             while ( my $module = shift @modules ) {
-                if ( eval { Module::Load::load($module); 1 } ) {
+                my $path = "$module.pm";
+                $path =~ s<::></>g;
+
+                if ( eval { require $path; 1 } ) {
                     $_sha_module = $module;
                     last;
                 }
