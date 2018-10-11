@@ -10,7 +10,7 @@ package Mail::Pyzor;
 use strict;
 use warnings;
 
-our $VERSION = '0.01-TRIAL1';
+our $VERSION = '0.01';
 
 =encoding utf-8
 
