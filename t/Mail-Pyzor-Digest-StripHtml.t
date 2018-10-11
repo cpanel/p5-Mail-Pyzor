@@ -21,8 +21,8 @@ use Test::More;
 use Test::FailWarnings;
 
 use Data::Dumper ();
-use Encode   ();
-use IPC::Run ();
+use Encode       ();
+use IPC::Run     ();
 
 use Mail::Pyzor::Digest::StripHtml ();
 
@@ -188,7 +188,7 @@ sub test_strip : Tests() {
 
             my $expect = _get_expected($in);
 
-        TODO: {
+          TODO: {
                 local $TODO = $opts{'todo'};
 
                 utf8::is_utf8($_) && utf8::encode($_) for ( $got, $expect );
@@ -197,11 +197,11 @@ sub test_strip : Tests() {
                     $got,
                     $expect,
                     $label,
-                )
-                or do {
+                  )
+                  or do {
                     diag Test::Mail::Pyzor::dump($got);
                     diag Test::Mail::Pyzor::dump($expect);
-                };
+                  };
             }
         }
     }

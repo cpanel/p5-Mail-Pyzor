@@ -21,10 +21,10 @@ use Test::More;
 use Test::FailWarnings;
 
 use Data::Dumper ();
-use Email::MIME ();
-use Encode      ();
-use JSON        ();
-use IPC::Run    ();
+use Email::MIME  ();
+use Encode       ();
+use JSON         ();
+use IPC::Run     ();
 
 use Test::Mail::Pyzor ();
 
@@ -100,7 +100,7 @@ sub test_digest_payloads : Tests() {
     my ($self) = @_;
 
   SKIP: {
-        $self->_skip_if_no_python_pyzor($self->num_tests());
+        $self->_skip_if_no_python_pyzor( $self->num_tests() );
 
         my %name_message = %{ $self->{'_message_hr'} };
 
@@ -126,13 +126,13 @@ sub test_digest_payloads : Tests() {
                     $payloads_ar,
                     $expected_ar,
                     $name,
-                )
-                or do {
+                  )
+                  or do {
                     for my $i ( 1 .. $#$expected_ar ) {
                         diag Test::Mail::Pyzor::dump( $payloads_ar->[$i] );
                         diag Test::Mail::Pyzor::dump( $expected_ar->[$i] );
                     }
-                };
+                  };
             }
         }
     }
@@ -174,14 +174,14 @@ sub test_normalize : Tests() {
     my ($self) = @_;
 
   SKIP: {
-        $self->_skip_if_no_python_pyzor($self->num_tests());
+        $self->_skip_if_no_python_pyzor( $self->num_tests() );
 
         for my $in ( _NORMALIZE() ) {
             diag Test::Mail::Pyzor::dump($in);
 
             my $copy = $in;
 
-            my $expect = _pyzor_normalize(\$copy);
+            my $expect = _pyzor_normalize( \$copy );
 
             Mail::Pyzor::Digest::Pieces::normalize($copy);
 
@@ -191,7 +191,7 @@ sub test_normalize : Tests() {
                 '… as binary: ' . Test::Mail::Pyzor::dump($expect),
             );
 
-        SKIP: {
+          SKIP: {
                 my $copy = $in;
 
                 utf8::decode($copy) or skip 'This is invalid UTF-8.', 1;

@@ -23,7 +23,7 @@ Mail::Pyzor::Client - Pyzor client logic
 
     my $client = Mail::Pyzor::Client->new();
 
-    my $digest = Cpanel::Pyzor::Digest::get( \$msg );
+    my $digest = Cpanel::Pyzor::Digest::get( $msg );
 
     my $check_ref = $client->check($digest);
     die $check_ref->{'Diag'} if $check_ref->{'Code'} ne '200';
@@ -39,11 +39,13 @@ implements the functionality needed for L<Mail::SpamAssassin>.
 =head1 PROTOCOL DETAILS
 
 The Pyzor protocol is not a published standard, and there appears to be
-no meaningful public documentation. What follows is enough information
-to allow effective use of this module:
+no meaningful public documentation. What follows is enough information,
+largely gleaned through forum posts and reverse engineering, to facilitate
+effective use of this module:
 
-Pyzor is an RPC, message-based protocol. Each message
-is a simple dictionary. Server responses each include the following:
+Pyzor is an RPC-oriented, message-based protocol. Each message
+is a simple dictionary of 7-bit ASCII keys and values. Server responses
+always include at least the following:
 
 =over
 
@@ -55,7 +57,7 @@ of the status.
 
 =back
 
-(NB: There are additional standard headers that are useful only for
+(NB: There are additional standard response headers that are useful only for
 the protocol itself and thus are not part of this module’s returns.)
 
 =head2 Reliability
@@ -284,7 +286,7 @@ sub _do_send_receive {
 
     my $response_pv = delete $resp_hr->{'PV'};
 
-    if ($PYZOR_PROTOCOL_VERSION ne $response_pv) {
+    if ( $PYZOR_PROTOCOL_VERSION ne $response_pv ) {
         warn "Unexpected protocol version ($response_pv) in Pyzor response!";
     }
 
@@ -308,7 +310,7 @@ sub _receive_packet {
         my $time_left = $end_time - time;
 
         if ( $time_left <= 0 ) {
-            die Mail::Pyzor::X->create('Timeout', "Did not receive a response from the pyzor server $self->{'_server_host'}:$self->{'_server_port'} for $self->{'_timeout'} seconds!");
+            die Mail::Pyzor::X->create( 'Timeout', "Did not receive a response from the pyzor server $self->{'_server_host'}:$self->{'_server_port'} for $self->{'_timeout'} seconds!" );
         }
 
         my $bytes = IO::SigGuard::sysread( $sock, $response, $READ_SIZE, length $response );
@@ -363,10 +365,10 @@ sub _sign_msg {
 
     $msg_ref->{'Sig'} = lc Mail::Pyzor::SHA::sha1_hex(
         Mail::Pyzor::SHA::sha1( $self->_generate_packet_from_message($msg_ref) ) .    #
-          ':' .                                                                  #
-          $msg_ref->{'Time'} .                                                   #
-          ':' .                                                                  #
-          $self->_get_user_pass_hash_key()                                       #
+          ':' .                                                                       #
+          $msg_ref->{'Time'} .                                                        #
+          ':' .                                                                       #
+          $self->_get_user_pass_hash_key()                                            #
     );
 
     return 1;

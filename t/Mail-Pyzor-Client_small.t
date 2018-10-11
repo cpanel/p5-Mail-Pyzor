@@ -91,8 +91,8 @@ sub test_internals_sanity : Tests(2) {
     cmp_deeply(
         $msg,
         all(
-            re( qr/Cannot connect.+heyhey/ ),
-            re( qr<\Q$enoent_str\E> ),
+            re(qr/Cannot connect.+heyhey/),
+            re(qr<\Q$enoent_str\E>),
         ),
         "_get_connection_or_die throws when IO::Socket::INET cannot connect",
     );

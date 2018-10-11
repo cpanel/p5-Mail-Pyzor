@@ -36,8 +36,8 @@ __PACKAGE__->new()->runtests() if !caller;
 #----------------------------------------------------------------------
 
 sub test_check_and_report : Tests(6) {
-    for my $method_name ( qw( check report ) ) {
-        my ($tfh, $temp_file) = File::Temp::tempfile( CLEANUP => 1 );
+    for my $method_name (qw( check report )) {
+        my ( $tfh, $temp_file ) = File::Temp::tempfile( CLEANUP => 1 );
 
         my $send_packet;
         no warnings 'redefine';
@@ -91,8 +91,8 @@ sub test_check_and_report : Tests(6) {
                 "Thread: $thread_id",
                 "PV: $Mail::Pyzor::Client::PYZOR_PROTOCOL_VERSION",
                 "User: $Mail::Pyzor::Client::DEFAULT_USERNAME",
-                re( qr<\ATime: [0-9]+\z> ),
-                re( qr<\ASig: [a-f0-9]+\z> ),
+                re(qr<\ATime: [0-9]+\z>),
+                re(qr<\ASig: [a-f0-9]+\z>),
                 q<>,
                 q<>,
             ],

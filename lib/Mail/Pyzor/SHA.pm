@@ -8,22 +8,25 @@ use Module::Load ();
 use constant _ORDER => ( 'Digest::SHA1', 'Digest::SHA' );
 
 my $_sha_module;
+
 sub _sha_module {
-    if (!$_sha_module) {
+    if ( !$_sha_module ) {
 
         # First check if one of the modules is loaded.
-        if (my @loaded = grep { $_->can('sha1') } _ORDER) {
+        if ( my @loaded = grep { $_->can('sha1') } _ORDER ) {
             $_sha_module = $loaded[0];
         }
         else {
+            local $@;
+
             my @modules = _ORDER();
 
-            while (my $module = shift @modules) {
+            while ( my $module = shift @modules ) {
                 if ( eval { Module::Load::load($module); 1 } ) {
                     $_sha_module = $module;
                     last;
                 }
-                elsif (!@modules) {
+                elsif ( !@modules ) {
                     die;
                 }
             }

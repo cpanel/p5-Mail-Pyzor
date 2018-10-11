@@ -28,7 +28,7 @@ A reimplementation of L<https://github.com/SpamExperts/pyzor/blob/master/pyzor/d
 
 #----------------------------------------------------------------------
 
-use Email::MIME  ();
+use Email::MIME ();
 
 use Mail::Pyzor::Digest::Pieces ();
 use Mail::Pyzor::SHA            ();
@@ -43,8 +43,9 @@ This takes an email message in raw MIME text format (i.e., as saved in the
 standard mbox format) and returns the message’s Pyzor digest in lower-case
 hexadecimal.
 
-The output from this function and C<pyzor>’s C<digest> command should be
-identical normally.
+The output from this function should normally be identical to that of
+the C<pyzor> script’s C<digest> command. It is suitable for use in
+L<Mail::Pyzor::Client>’s request methods.
 
 =cut
 

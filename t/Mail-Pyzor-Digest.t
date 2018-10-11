@@ -25,9 +25,9 @@ use Test::FailWarnings;
 use Test::Mail::Pyzor ();
 
 use Data::Dumper ();
-use File::Slurp ();
-use File::Which ();
-use IO::Pty ();
+use File::Slurp  ();
+use File::Which  ();
+use IO::Pty      ();
 
 use Mail::Pyzor::Digest ();
 
