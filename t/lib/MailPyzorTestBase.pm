@@ -20,9 +20,16 @@ sub _skip_if_no_python_pyzor {
     my ($self, $num_tests) = @_;
 
     if (!Test::Mail::Pyzor::python_can_load_pyzor()) {
-        my $bin = Test::Mail::Pyzor::python_bin();
+        my $msg;
 
-        skip "“$bin” can’t load pyzor!", $num_tests;
+        if ( my $bin = Test::Mail::Pyzor::python_bin() ) {
+            $msg = "“$bin” can’t load pyzor.";
+        }
+        else {
+            $msg = "No “python” binary found.";
+        }
+
+        skip $msg, $num_tests;
     }
 
     return;
