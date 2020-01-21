@@ -348,16 +348,16 @@ sub _send_packet {
 
 sub _get_connection_or_die {
     my ($self) = @_;
-    $self->{'_sock'} ||= IO::Socket::INET->new(
+    my $sock = IO::Socket::INET->new(
         'PeerHost' => $self->{'_server_host'},
         'PeerPort' => $self->{'_server_port'},
         'Proto'    => 'udp'
     );
 
-    if ( !$self->{'_sock'} ) {
+    if ( !$sock ) {
         die "Cannot connect to $self->{'_server_host'}:$self->{'_server_port'}: $@ $!";
     }
-    return $self->{'_sock'};
+    return $sock;
 }
 
 sub _sign_msg {
