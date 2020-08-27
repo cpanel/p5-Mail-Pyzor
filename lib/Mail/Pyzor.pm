@@ -10,7 +10,7 @@ package Mail::Pyzor;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =encoding utf-8
 
@@ -35,11 +35,6 @@ the distribution includes:
 =item * L<Mail::Pyzor::Digest>
 
 =back
-
-=head1 STABILITY
-
-This module’s API is EXPERIMENTAL. Please check the changelog
-before updating to a new release.
 
 =cut
 
