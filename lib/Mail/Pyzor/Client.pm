@@ -141,7 +141,7 @@ sub new {
         '_username'    => $OPTS{'username'}    || $DEFAULT_USERNAME,
         '_password'    => $OPTS{'password'}    || $DEFAULT_PASSWORD,
         '_op_spec'     => $DEFAULT_OP_SPEC,
-        '_timeout'     => $OPTS{'timeout'}     || $DEFAULT_TIMEOUT,
+        '_timeout'     => $OPTS{'timeout'} || $DEFAULT_TIMEOUT,
     }, $class;
 }
 
@@ -348,16 +348,21 @@ sub _send_packet {
 
 sub _get_connection_or_die {
     my ($self) = @_;
-    my $sock = IO::Socket::INET->new(
+
+    # clear the socket if the PID changes
+    if ( defined $self->{'_sock_pid'} && $self->{'_sock_pid'} != $$ ) {
+        undef $self->{'_sock_pid'};
+        undef $self->{'_sock'};
+    }
+
+    $self->{'_sock_pid'} ||= $$;
+    $self->{'_sock'}     ||= IO::Socket::INET->new(
         'PeerHost' => $self->{'_server_host'},
         'PeerPort' => $self->{'_server_port'},
         'Proto'    => 'udp'
-    );
+    ) or die "Cannot connect to $self->{'_server_host'}:$self->{'_server_port'}: $@ $!";
 
-    if ( !$sock ) {
-        die "Cannot connect to $self->{'_server_host'}:$self->{'_server_port'}: $@ $!";
-    }
-    return $sock;
+    return $self->{'_sock'};
 }
 
 sub _sign_msg {
