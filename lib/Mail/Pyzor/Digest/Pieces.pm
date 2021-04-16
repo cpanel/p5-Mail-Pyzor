@@ -45,6 +45,8 @@ It reimplements logic found in pyzor’s F<digest.py> module
 use Email::MIME::ContentType ();
 use Encode                   ();
 
+our $VERSION = '0.03';
+
 # each tuple is [ offset, length ]
 use constant _HASH_SPEC => ( [ 20, 3 ], [ 60, 3 ] );
 

@@ -24,4 +24,6 @@ package Mail::Pyzor::X::Base;
 
 use parent qw( X::Tiny::Base );
 
+our $VERSION = '0.03';
+
 1;

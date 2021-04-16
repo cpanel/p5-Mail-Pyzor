@@ -48,6 +48,8 @@ use Email::MIME ();
 use Mail::Pyzor::Digest::Pieces ();
 use Mail::Pyzor::SHA            ();
 
+our $VERSION = '0.03';
+
 #----------------------------------------------------------------------
 
 =head1 FUNCTIONS

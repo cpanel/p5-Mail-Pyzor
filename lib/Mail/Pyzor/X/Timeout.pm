@@ -24,4 +24,6 @@ package Mail::Pyzor::X::Timeout;
 
 use parent qw( Mail::Pyzor::X::Base );
 
+our $VERSION = '0.03';
+
 1;
