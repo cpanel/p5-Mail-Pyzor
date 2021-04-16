@@ -1,0 +1,141 @@
+{
+   "abstract" : "Pyzor spam filtering in Perl",
+   "author" : [
+      "cPanel, LLC <contact@cpanel.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 6.017, CPAN::Meta::Converter version 2.150010",
+   "license" : [
+      "apache_2_0"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : 2
+   },
+   "name" : "Mail-Pyzor",
+   "no_index" : {
+      "directory" : [
+         "eg",
+         "examples",
+         "inc",
+         "share",
+         "t",
+         "xt"
+      ]
+   },
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0",
+            "perl" : "5.014"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "File::Spec" : "0",
+            "IO::Handle" : "0",
+            "IPC::Open3" : "0",
+            "Test::More" : "0",
+            "Test::Pod" : "1.41",
+            "Test::Version" : "2.00"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Digest::SHA" : "0",
+            "Email::MIME" : "0",
+            "Email::MIME::ContentType" : "0",
+            "Encode" : "0",
+            "HTML::Parser" : "0",
+            "IO::SigGuard" : "0.12",
+            "IPC::Run" : "0",
+            "X::Tiny" : "0",
+            "parent" : "0",
+            "perl" : "5.014"
+         }
+      },
+      "test" : {
+         "recommends" : {
+            "CPAN::Meta" : "2.120900"
+         },
+         "requires" : {
+            "Data::Dumper" : "0",
+            "ExtUtils::MakeMaker" : "0",
+            "File::Slurp" : "0",
+            "File::Spec" : "0",
+            "File::Which" : "0",
+            "IO::Pty" : "0",
+            "JSON" : "0",
+            "Test::Class" : "0",
+            "Test::Deep" : "0",
+            "Test::Exception" : "0",
+            "Test::FailWarnings" : "0",
+            "Test::More" : "0",
+            "autodie" : "0",
+            "perl" : "5.014"
+         }
+      }
+   },
+   "provides" : {
+      "Mail::Pyzor" : {
+         "file" : "lib/Mail/Pyzor.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::Client" : {
+         "file" : "lib/Mail/Pyzor/Client.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::Digest" : {
+         "file" : "lib/Mail/Pyzor/Digest.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::Digest::Pieces" : {
+         "file" : "lib/Mail/Pyzor/Digest/Pieces.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::Digest::StripHtml" : {
+         "file" : "lib/Mail/Pyzor/Digest/StripHtml.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::SHA" : {
+         "file" : "lib/Mail/Pyzor/SHA.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::X" : {
+         "file" : "lib/Mail/Pyzor/X.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::X::Base" : {
+         "file" : "lib/Mail/Pyzor/X/Base.pm",
+         "version" : "0.03"
+      },
+      "Mail::Pyzor::X::Timeout" : {
+         "file" : "lib/Mail/Pyzor/X/Timeout.pm",
+         "version" : "0.03"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Dual-Life/p5-Mail-Pyzor/issues"
+      },
+      "homepage" : "https://github.com/Dual-Life/p5-Mail-Pyzor",
+      "repository" : {
+         "type" : "git",
+         "url" : "https://github.com/Dual-Life/p5-Mail-Pyzor.git",
+         "web" : "https://github.com/Dual-Life/p5-Mail-Pyzor"
+      }
+   },
+   "version" : "0.03",
+   "x_contributors" : [
+      "Andrew Colin Kissa <andrew@topdog.za.net>",
+      "Felipe Gasper <felipe@cpanel.net>",
+      "Nicolas R <nicolas@atoomic.org>",
+      "Stephen Bee <stephen@cpanel.net>",
+      "Tim Mullin <tim@cpanel.net>"
+   ],
+   "x_generated_by_perl" : "v5.32.0",
+   "x_serialization_backend" : "Cpanel::JSON::XS version 4.24",
+   "x_spdx_expression" : "Apache-2.0"
+}
+

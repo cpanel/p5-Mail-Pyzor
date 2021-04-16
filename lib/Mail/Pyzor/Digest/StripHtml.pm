@@ -59,6 +59,8 @@ if the input is valid HTML.
 
 use HTML::Parser ();
 
+our $VERSION = '0.03';
+
 #----------------------------------------------------------------------
 
 =head1 FUNCTIONS

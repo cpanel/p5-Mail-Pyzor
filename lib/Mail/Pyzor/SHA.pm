@@ -27,6 +27,8 @@ use warnings;
 
 use constant _ORDER => ( 'Digest::SHA1', 'Digest::SHA' );
 
+our $VERSION = '0.03';
+
 my $_sha_module;
 
 sub _sha_module {

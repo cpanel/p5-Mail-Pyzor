@@ -86,6 +86,8 @@ are represented as thrown instances of L<Mail::Pyzor::X::Timeout>.
 
 #----------------------------------------------------------------------
 
+our $VERSION = '0.03';
+
 our $DEFAULT_SERVER_HOST    = 'public.pyzor.org';
 our $DEFAULT_SERVER_PORT    = 24441;
 our $DEFAULT_USERNAME       = 'anonymous';
