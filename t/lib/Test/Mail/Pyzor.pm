@@ -45,7 +45,7 @@ sub get_test_emails_hr {
 my $_python_bin;
 
 sub python_bin {
-    return $_python_bin ||= File::Which::which('python');
+    return $_python_bin ||= File::Which::which('python') || File::Which::which('python2');
 }
 
 my $_python_can_load_pyzor;
