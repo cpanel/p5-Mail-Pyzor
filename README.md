@@ -6,16 +6,11 @@ Mail::Pyzor - Pyzor spam filtering in Perl
 
 This distribution contains Perl implementations of parts of
 [Pyzor](http://pyzor.org), a tool for use in spam email filtering.
-It is intended for use with [Mail::SpamAssassin](https://metacpan.org/pod/Mail::SpamAssassin) but may be useful
+It is intended for use with [Mail::SpamAssassin](https://metacpan.org/pod/Mail%3A%3ASpamAssassin) but may be useful
 in other contexts.
 
 See the following modules for information on specific tools that
 the distribution includes:
 
-- [Mail::Pyzor::Client](https://metacpan.org/pod/Mail::Pyzor::Client)
-- [Mail::Pyzor::Digest](https://metacpan.org/pod/Mail::Pyzor::Digest)
-
-# STABILITY
-
-This module’s API is EXPERIMENTAL. Please check the changelog
-before updating to a new release.
+- [Mail::Pyzor::Client](https://metacpan.org/pod/Mail%3A%3APyzor%3A%3AClient)
+- [Mail::Pyzor::Digest](https://metacpan.org/pod/Mail%3A%3APyzor%3A%3ADigest)
