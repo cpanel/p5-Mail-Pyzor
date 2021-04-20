@@ -25,7 +25,7 @@ package Mail::Pyzor;
 use strict;
 use warnings;
 
-our $VERSION = '0.06_01';
+our $VERSION = '0.06';
 
 =encoding utf-8
 

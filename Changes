@@ -1,6 +1,6 @@
 Revision history for Perl module Mail::Pyzor
 
-0.06    Mon 21 Apr 2021
+0.06    Tue 22 Apr 2021
 - Fix client connection failures due to inter-process UDP socket reuse
 - Fix CentOS 8 in tests.
 - Update license verbiage again.
