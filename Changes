@@ -1,5 +1,8 @@
 Revision history for Perl module Mail::Pyzor
 
+0.06_01 - Mon 19 Apr 2021
+- ...
+
 0.03    Thu 27 Aug 2020
 - License update: perl5 -> Apache 2.0
 - Removed EXPERIMENTAL status.
